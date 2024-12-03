@@ -32,13 +32,18 @@ import User from './components/User.vue'
         pass:this.userPass,
         email:this.userEmail
       })
+    },
+    deleteUser(index){
+      this.users.splice(index, 1)
     }
   }
  }
 </script>
 
 <template>
- <input type="text" v-model="userName" placeholder="Имя">
+  <div className="main">
+    <h3>Форма добавления пользователей</h3>
+    <input type="text" v-model="userName" placeholder="Имя">
  <input type="password" v-model="userPass" placeholder="Пароль">
  <input type="email" v-model="userEmail" placeholder="Email">
  <p className="error">{{ error }}</p>
@@ -54,13 +59,40 @@ import User from './components/User.vue'
     Массив пользователей имеет больше чем 1 элемент
   </div>
 
-
-  <div v-for="(el, index) in users" :key="index" className="user">
-    <h3>{{ el.name }}</h3>
-    <p>{{ el.email }} - <b>{{ el.pass }}</b></p>
+  <User v-for="(el,index) in users" :key="index" :user="el" :index="index" :deleteUser="deleteUser"/>
   </div>
+
 </template>
 
-<style scoped>
+<style scoped> 
+.main{
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  margin: 0 auto;
+  background-color: beige;
+  padding: 10px;
+}
+.main input{
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid green;
+}
+.main button{
+  background-color: green;
+  width: 200px;
+  height: 40px;
+  margin: 0 auto;
+  color: azure;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
 
+}
+.main button:hover{
+  background-color: rgb(5, 92, 5);
+  transition: 0.3s;
+}
 </style>
